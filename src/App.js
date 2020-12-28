@@ -1,5 +1,7 @@
 import './App.css';
 import { useState } from 'react';
+import { EventGenerator } from './EventGenerator';
+import events from './events'
 
 function App() {
   const [diceSum, setDiceSum] = useState(null)
@@ -35,6 +37,13 @@ function App() {
         })}
         <p>You threw {diceAmount} dice for a total sum of {diceSum}</p>
         {rolls.map(e => <p>{e}</p>)}
+        <>
+        <EventGenerator 
+          title={events[0].title} 
+          text={events[0].text} 
+          image={events[0].image} 
+          modifier={events[0].modifier}/>
+        </>
       </div>
       </header>
     </div>
