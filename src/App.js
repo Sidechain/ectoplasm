@@ -1,25 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
-
-// dork
-// superdork
+import { useState } from 'react';
 
 function App() {
+  const [diceSum, setDiceSum] = useState(null)
+  const [diceAmount, setDiceAmount] = useState("")
+  const [rolls, setRolls] = useState([])
+
+  const diceRoll = diceAmount => {
+    let rolls = []
+    let rollSum = 0
+    for (let i = 0; i < diceAmount; i++) {
+      rolls[i] = Math.floor(Math.random() * 6) +1
+      rollSum += rolls[i]
+    }
+    setDiceAmount(diceAmount)
+    setRolls(rolls)
+    setDiceSum(rollSum)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <div className="buttons">
+        {[1, 2, 3, 4, 5].map(number => {
+          let text = number === 1 ? "die" : "dice"
+          return (
+            <button
+              key={number}
+              onClick={() => diceRoll(number)}
+              className="button">
+                {number} {text}
+              </button>
+          )
+        })}
+        <p>You threw {diceAmount} dice for a total sum of {diceSum}</p>
+        {rolls.map(e => <p>{e}</p>)}
+      </div>
       </header>
     </div>
   );
